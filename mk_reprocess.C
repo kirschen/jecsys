@@ -60,7 +60,7 @@
 ////  // Calculate soft radiation (ISR+FSR) corrections
 ////  // and uncertainty eigenvectors for global fit
 ////
-  Bool_t dodijetsoftrad=false;
+  Bool_t dodijetsoftrad=true;
   
   softrad(0.000,0.261, dodijetsoftrad, epoch); 
   softrad(0.261,0.522, dodijetsoftrad, epoch); 
@@ -83,9 +83,11 @@
 
 
   //std::vector <string> sampleconfigs = {epoch=="B"||epoch=="ABC"||epoch=="ABCD" ? "zee_zmm" : "gam_zee_zmm"};//"MJDJ_gam_zll","DJ","gam","zll","gam_zll"};
-  std::vector <string> sampleconfigs = {epoch=="ABC"||epoch=="ABCD" ? "zll" : "gam_zll"};
+  //std::vector <string> sampleconfigs = {epoch=="ABC"||epoch=="ABCD" ? "zll" : "gam_zll"};
   //std::vector <string> sampleconfigs = {"zmm"};//"MJDJ_gam_zll","DJ","gam","zll","gam_zll"};
   //  std::vector <string> sampleconfigs = {"zll"};//"MJDJ_gam_zll","DJ","gam","zll","gam_zll"};
+  //  std::vector <string> sampleconfigs = {"MJDJ_gam_zll","DJ","gam","zll","gam_zll"};
+  std::vector <string> sampleconfigs = {"DJ","gam_zll","zll"};
   std::vector <string> methodconfigs = {  "PtBalMPF"};//,"PtBal","MPF"};
 
   for(auto s : sampleconfigs){
