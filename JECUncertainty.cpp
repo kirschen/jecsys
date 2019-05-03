@@ -73,8 +73,6 @@
 //  - taken from closure: https://indico.cern.ch/event/759977/contributions/3157465/attachments/1724807/2792149/L2ResCorrection_RunBCDEFcombined_SiTrg_JERSF2016_withAndWithoutL1BXclean_V27_closure.tar
 //  - use full difference between with/without L1BXPrefiring JERnominal
 
-
-
 using namespace std;
 
 // Future improvements:
@@ -86,6 +84,8 @@ using namespace std;
 // This is most likely a missing/misnamed file given to JetCorrectorParameters
 // The last file printed out before the crash in debug mode is usually the fault
 bool debug = false;//true;//false;
+
+const char *DJ_Binvar="PtAve";
 
 
 JECUncertainty::JECUncertainty(const jec::JetAlgo& algo, 
@@ -450,7 +450,7 @@ void JECUncertainty::_InitL2Res() {
   const char *s, *s2;
   // For RelativePt (flat vs loglin)
   {
-    s = Form("%sAutumn18_RunD_V5_20190304_DATA_MPF_FLAT_L2Residual_%s.txt",d,a);
+    s = Form("%sTextFiles-30April_%s_RunD_Autumn18_MPF_FLAT_L2Residual_pythia8_%s.txt",d,DJ_Binvar,a);
     if (debug) cout << s << endl << flush;
     JetCorrectorParameters *l2l3res = new JetCorrectorParameters(s);
     vector<JetCorrectorParameters> v;
@@ -458,7 +458,7 @@ void JECUncertainty::_InitL2Res() {
     _jecL2ResFlat = new FactorizedJetCorrector(v);
   }
   {
-    s = Form("%sAutumn18_RunD_V5_20190304_DATA_MPF_LOGLIN_L2Residual_%s.txt",d,a);
+    s = Form("%sTextFiles-30April_%s_RunD_Autumn18_MPF_LOGLIN_L2Residual_pythia8_%s.txt",d,DJ_Binvar,a);
     if (debug) cout << s << endl << flush;
     JetCorrectorParameters *l2l3res = new JetCorrectorParameters(s);
     vector<JetCorrectorParameters> v;
@@ -468,15 +468,15 @@ void JECUncertainty::_InitL2Res() {
 
   // For RelativeBal (MPF vs pTbal); separate source for Sum16
   {
-    s = Form("%sAutumn18_RunD_V5_20190304_DATA_MPF_LOGLIN_L2Residual_%s.txt",d,a);
+    s = Form("%sTextFiles-30April_%s_RunD_Autumn18_MPF_LOGLIN_L2Residual_pythia8_%s.txt",d,DJ_Binvar,a);
     if (debug) cout << s << endl << flush;
     JetCorrectorParameters *l2l3res = new JetCorrectorParameters(s);
     vector<JetCorrectorParameters> v;
     v.push_back(*l2l3res);
     _jecL2ResMPF = new FactorizedJetCorrector(v);
   }
-  {
-    s = Form("%sAutumn18_RunD_V5_20190304_DATA_pT_LOGLIN_L2Residual_%s.txt",d,a);
+ { 
+    s = Form("%sTextFiles-30April_%s_RunD_Autumn18_pT_LOGLIN_L2Residual_pythia8_%s.txt",d,DJ_Binvar,a);
     if (debug) cout << s << endl << flush;
     JetCorrectorParameters *l2l3res = new JetCorrectorParameters(s);
     vector<JetCorrectorParameters> v;
@@ -503,7 +503,7 @@ void JECUncertainty::_InitL2Res() {
     _jecL2L3Res2ParDiJetGuesstimate = new FactorizedJetCorrector(v);
   }
   {
-    s = Form("%sAutumn18_RunD_V5M2_DATA_L2L3Residual_%s.txt",d,a); // RunD results for Dijet+barrel global fit vs. zjet only (no L2Res from dijets before)
+    s = Form("%sAutumn18_V13temp_2Par_%s_CollectL2Output_DJ_PtBalMPF_Autumn18D_VXXX_DATA_L2L3Residual_%s.txt",d,DJ_Binvar,a); // RunD results for Dijet 2par fit from combination files
     if (debug) cout << s << endl << flush;
     JetCorrectorParameters *l2l3res = new JetCorrectorParameters(s);
     vector<JetCorrectorParameters> v;
@@ -511,7 +511,7 @@ void JECUncertainty::_InitL2Res() {
     _jecL2L3Res2ParDiJet = new FactorizedJetCorrector(v);
   }
   {
-    s = Form("%sAutumn18_RunD_V5MZJetOnly2Par_DATA_L2L3Residual_%s.txt",d,a); // RunD results for Dijet+barrel global fit vs. zjet only (no L2Res from dijets before)
+    s = Form("%sAutumn18_V13temp_2Par_CollectL2Output_gam_zll_PtBalMPF_Autumn18D_VXXX_DATA_L2L3Residual_%s.txt",d,a); // RunD results for zjet and gamjet 2par fit from combination files
     if (debug) cout << s << endl << flush;
     JetCorrectorParameters *l2l3res = new JetCorrectorParameters(s);
     vector<JetCorrectorParameters> v;
@@ -519,7 +519,7 @@ void JECUncertainty::_InitL2Res() {
     _jecL2L3Res2ParZGamJet = new FactorizedJetCorrector(v);
   }
   {
-    s = Form("%sAutumn18_RunD_V5M2_FLAT_DATA_L2L3Residual_%s.txt",d,a); // RunD results for Dijet+barrel global fit vs. zjet only (no L2Res from dijets before)
+    s = Form("%sAutumn18_V13temp_1ParConst_%s_CollectL2Output_DJ_PtBalMPF_Autumn18D_VXXX_DATA_L2L3Residual_%s.txt",d,DJ_Binvar,a); // RunD results for Dijet 2par fit from combination files
     if (debug) cout << s << endl << flush;
     JetCorrectorParameters *l2l3res = new JetCorrectorParameters(s);
     vector<JetCorrectorParameters> v;
@@ -527,7 +527,7 @@ void JECUncertainty::_InitL2Res() {
     _jecL2L3ResConstDiJet = new FactorizedJetCorrector(v);
   }
   {
-    s = Form("%sAutumn18_RunD_V5MZJetOnly1Par_DATA_L2L3Residual_%s.txt",d,a); // RunD results for Dijet+barrel global fit vs. zjet only (no L2Res from dijets before)
+    s = Form("%sAutumn18_V13temp_1ParConst_CollectL2Output_gam_zll_PtBalMPF_Autumn18D_VXXX_DATA_L2L3Residual_%s.txt",d,a); // RunD results for zjet and gamjet 2par fit from combination files
     if (debug) cout << s << endl << flush;
     JetCorrectorParameters *l2l3res = new JetCorrectorParameters(s);
     vector<JetCorrectorParameters> v;
@@ -821,7 +821,8 @@ double JECUncertainty::_AbsoluteSample(const double pTprime) {
   double kfactor = 1;
   double err = kfactor*(rg / rfit - 1);
   //std::cout << "_AbsoluteSample: " << err << std::endl;
-  return err;
+  return 0.; // deactivated for planned V13 release
+  //  return err;
 }
 
 
@@ -1228,8 +1229,8 @@ double JECUncertainty::_RelativeSample(const double pTprime,
   double err = kfactor*(rzg / rdj - 1);
   //double err = kfactor*(rzg - 1);
   
-  //  return fabs(err)>fabs(loglinerror) ? err : loglinerror;
-  return err; //return const difference above 2.65
+  return fabs(err)>fabs(loglinerror) ? err : loglinerror;
+  //  return err; //return const difference above 2.65
 } // RelativeSample
 
 // Combine pileup uncertainty sources
